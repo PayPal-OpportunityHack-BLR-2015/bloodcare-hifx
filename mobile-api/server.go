@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/services"
-
 	"github.com/HiFX/env_parser"
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/app"
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/handlers"
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/middleware"
+	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/services"
 	"github.com/Sirupsen/logrus"
 	"github.com/goji/glogrus"
 	"github.com/zenazn/goji"
@@ -73,20 +72,21 @@ func main() {
 	} else {
 		fmt.Println("invalid log file; \n, Error : ", fileError, "\nopting standard output..")
 	}
-	redisService, _ := services.NewRedis(envSrc.RedisUrl)
+	redisService, reErr := services.NewRedis(envSrc.RedisUrl)
+	reErr = reErr
 	app.Chk(reErr)
 
 	sqlConnectionStringFormat := "%s:%s@tcp(%s:%s)/%s"
 	sqlConnectionString := fmt.Sprintf(sqlConnectionStringFormat, envSrc.MysqlUser, envSrc.MysqlPassword,
 		envSrc.MysqlHost, envSrc.MysqlPort, envSrc.MysqlDbName)
 	mySqlService := services.NewMySQL(sqlConnectionString, 10)
+
 	//TODO check
-	bH := handlers.NewBaseHandler(logr, config)
+	baseHandler := handlers.NewBaseHandler(logr, config)
+	userHandler := handlers.NewUserHandler(baseHandler, redisService, mySqlService)
 
-	volunteerH := handlers.NewVolunteerHandler(bH, redisService)
-
-	goji.Post("/login", bH.Route(volunteerH.DoLogin))
-	goji.NotFound(bH.NotFound)
+	goji.Post("/register", baseHandler.Route(userHandler.DoRegistration))
+	goji.NotFound(baseHandler.NotFound)
 
 	goji.Serve()
 }
