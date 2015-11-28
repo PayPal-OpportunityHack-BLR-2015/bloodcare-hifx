@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/app"
+	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/models"
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/services"
 	"github.com/zenazn/goji/web"
 )
@@ -20,15 +21,16 @@ func NewVolunteerHandler(b *BaseHandler, rs *services.Redis, ms *services.MySQL)
 }
 
 func (v *VolunteerHandler) DoLogin(c web.C, w http.ResponseWriter, r *http.Request) *app.Err {
-	appErr := app.NewErr()
+	// appErr := app.NewErr()
 	email := r.FormValue("email")
+	pass := r.FormValue("password")
 
-	if len(email) == 0 {
-		appErr.MissingParametersErrors("email")
-		v.Error(&c, w, *appErr)
-	}
-
-	volunteer, volunteerExist, err := v.MySql.GetVolunteer(email)
+	// if len(email) == 0 {
+	// 	appErr.MissingParametersErrors("email")
+	// 	v.Error(&c, w, *appErr)
+	// }
+	volunteer, msg, err := models.Sbd(email, pass, v.MS)
+	/*volunteer, volunteerExist, err := v.MySql.GetVolunteer(email)
 	if err != nil {
 		v.Error(&c, w, app.InternalServerError.SetErr(err.Error()))
 		return
@@ -39,5 +41,6 @@ func (v *VolunteerHandler) DoLogin(c web.C, w http.ResponseWriter, r *http.Reque
 		return
 	}
 	v.Respond(w, 200, volunteer)
+	*/
 	return nil
 }

@@ -4,7 +4,6 @@ import (
 	"database/sql"
 
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/app"
-	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/models"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -25,7 +24,12 @@ func NewMySQL(conString string, maxIdleCon int) *MySQL {
 	pg := MySQL{db: myDB}
 	return &pg
 }
-func (m MySQL) GetVolunteer(email string) (models.Volunteer, bool, error) {
+
+func (m *MySQL) Query(query string, values ...interface{}) (*sql.Rows, error) {
+	return m.db.Query(query, values...)
+}
+
+/*func (m *MySQL) GetVolunteer(email string) (models.Volunteer, bool, error) {
 
 	var volunteer models.Volunteer
 	dbResult, dbError := m.db.Query("SELECT id, name, email, password "+
@@ -43,3 +47,4 @@ func (m MySQL) GetVolunteer(email string) (models.Volunteer, bool, error) {
 		return volunteer, false, nil
 	}
 }
+*/
