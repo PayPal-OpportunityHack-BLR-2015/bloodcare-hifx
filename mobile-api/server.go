@@ -72,9 +72,8 @@ func main() {
 	} else {
 		fmt.Println("invalid log file; \n, Error : ", fileError, "\nopting standard output..")
 	}
-	redisService, reErr := services.NewRedis(envSrc.RedisUrl)
-	reErr = reErr
-	app.Chk(reErr)
+	redisService, _ := services.NewRedis(envSrc.RedisUrl)
+	// app.Chk(reErr)
 
 	sqlConnectionStringFormat := "%s:%s@tcp(%s:%s)/%s"
 	sqlConnectionString := fmt.Sprintf(sqlConnectionStringFormat, envSrc.MysqlUser, envSrc.MysqlPassword,
