@@ -1,4 +1,2 @@
-Opportunity
-============
-
-Opportunity hack
+Bloodcare Mobile API
+=====================
