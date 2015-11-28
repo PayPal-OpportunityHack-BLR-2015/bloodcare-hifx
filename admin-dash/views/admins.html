@@ -1,0 +1,68 @@
+{{ define "title"}}<title>Sales IQ Dashboard</title>{{ end }}
+{{ define "content" }}
+{{ template "header" . }}        
+{{ template "sidebar" . }}
+<!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+        <!-- page start-->
+            <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        Administrators
+                        <span class=" pull-right">
+                            <!--<button type="button" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> Add</button>-->
+                        </span>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table  table-hover general-table mtable">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th> Name</th>
+                                <th class="hidden-phone">Email</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {{range .adminsList}}
+                            <tr>
+                                <td class="admins"><img alt="" src="{{$.assetsurl}}/images/avatar/{{.ID}}.jpg"></td>
+                                <td>{{.Email}}</td>
+                                <td class="hidden-phone">{{.Name}}</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <!--<button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#myModal" class="btnLink" href="/administrators/view/{{.ID}}">-->
+                                    <!--<i class="fa fa-edit"></i>Edit-->
+                                    <!--</button>-->
+                                </td>
+                            </tr>
+                            {{end}}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+            </div>
+            <!-- page end-->
+        </section>
+    </section>
+    <!--main content end-->
+
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div> <!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div> <!-- /.modal -->
+{{ end }}
+{{ define "styles" }}
+<link href="{{.assetsurl}}/css/bootstrap-switch.css" rel="stylesheet">
+{{ end }}
+{{ define "fscripts" }}
+<script src="{{.assetsurl}}/js/bootstrap-switch.js"></script>
+{{ end }}

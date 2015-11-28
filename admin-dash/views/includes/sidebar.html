@@ -1,0 +1,56 @@
+{{ define "sidebar" }}
+<!--sidebar start-->
+<aside>
+    <div id="sidebar" class="nav-collapse">
+        <!-- sidebar menu start-->
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="{{.selDashboard}}" href="/">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{.selBloodBank}}" href="/bloodbank">
+                        <i class="fa fa-cogs"></i>
+                        <span>Bloodbanks</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{.selDonors}}" href="/donors">
+                        <i class="fa fa-cloud-upload"></i>
+                        <span>Donors</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{.selRequests}}" href="/requests">
+                        <i class="fa fa-cloud-upload"></i>
+                        <span>Requests</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{.selAdministrators}}" href="/administrators">
+                        <i class=" fa fa-group"></i>
+                        <span>Administrators</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{.selReport}}" href="/reports">
+                        <i class="fa fa-cloud-upload"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i>
+                        <span>Log Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- sidebar menu end-->
+    </div>
+</aside>
+<!--sidebar end-->
+{{ end }}
