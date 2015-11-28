@@ -1,6 +1,6 @@
-blinkz
+bloodcare
 ===================
-> blink (noun) - A momentary gleam of light:
+To address the blood donor shortage in India
 
 ##mobile-app
 Mobile App 
@@ -8,3 +8,4 @@ Mobile App
 Api for the mobile app
 ##admin-dash
 Admin dashboard
+
