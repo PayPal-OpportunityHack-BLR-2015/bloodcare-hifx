@@ -71,6 +71,9 @@ func RegisterUser(u *User, ms *services.MySQL) (bool, *app.Msg, error) {
 	}
 	query := "INSERT INTO users(name, mobile, password, blood, sex, lat, lng, place_id) VALUES(?,?,?,?,?,?,?,?)"
 	_, dbError := ms.Exec(query, u.Name, u.Mobile, u.Password, u.Blood, u.Sex, u.Lat, u.Lng, u.PlaceId)
+	if dbError != nil {
+		return false, nil, dbError
+	}
 	return false, app.NewErrMsg(error), nil
 	/*
 		dbResult, dbError := ms.Query(ADMIN_AUTH_SQL, email)
