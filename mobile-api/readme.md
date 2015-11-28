@@ -1,0 +1,4 @@
+Opportunity
+============
+
+Opportunity hack
