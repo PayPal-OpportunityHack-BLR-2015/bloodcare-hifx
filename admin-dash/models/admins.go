@@ -21,7 +21,7 @@ func (a *Admin) String() string {
 	return a.Name
 }
 
-func AuthAdmin(email, pass string, cs *services.Cassandra) (*Admin, *app.Msg, error) {
+func AuthAdmin(email, pass string, db *services.MySQL) (*Admin, *app.Msg, error) {
 	const (
 		ADMIN_AUTH_SQL = "SELECT id, name, password, status  FROM admin_users WHERE email=?"
 	)
@@ -31,13 +31,19 @@ func AuthAdmin(email, pass string, cs *services.Cassandra) (*Admin, *app.Msg, er
 		return nil, app.NewErrMsg("The email or password is empty."), nil
 	}
 
-	iter := cs.Query(ADMIN_AUTH_SQL, email).Iter()
-	ok := iter.Scan(&id, &name, &bcryptpass, &status)
-	if !ok {
+	rows, err  := db.Query(ADMIN_AUTH_SQL, email)
+	if err != nil {
+		return nil, nil, err
+	}
+	defer rows.Close()
+
+	if !rows.Next() {
 		return nil, app.NewErrMsg("The email or password is incorrect."), nil
 	}
-	err := bcrypt.CompareHashAndPassword([]byte(bcryptpass), []byte(pass))
-	if err != nil {
+
+	rows.Scan(&id, &name, &bcryptpass, &status)
+	perr := bcrypt.CompareHashAndPassword([]byte(bcryptpass), []byte(pass))
+	if perr != nil {
 		return nil, app.NewErrMsg("The email or password is incorrect."), nil
 	}
 	if status == "inactive" {
@@ -46,7 +52,7 @@ func AuthAdmin(email, pass string, cs *services.Cassandra) (*Admin, *app.Msg, er
 	return &Admin{ID: id, Name: name, Email: email}, nil, nil
 }
 
-func ListAdmins(cs *services.Cassandra) (*Admins, error) {
+func ListAdmins(db *services.MySQL) (*Admins, error) {
 	const (
 		ADMINS_LIST_SQL = "SELECT id, name, email, password, status FROM admin_users"
 	)
@@ -58,9 +64,13 @@ func ListAdmins(cs *services.Cassandra) (*Admins, error) {
 		password string
 		status   string
 	)
-	iter := cs.Query(ADMINS_LIST_SQL).Iter()
+	rows, err  := db.Query(ADMINS_LIST_SQL)
+	if err != nil {
+		return nil, err
+	}
 
-	for iter.Scan(&id, &name, &email, &password, &status) {
+	for rows.Next(){
+		rows.Scan(&id, &name, &email, &password, &status)
 		results = append(results,
 			&Admin{
 				ID:       id,

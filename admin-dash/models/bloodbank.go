@@ -18,45 +18,28 @@ func (a *BloodBank) String() string {
 	return fmt.Sprintf("id:%s", a.Id)
 }
 
-func BloodBanks(page int, cs *services.Cassandra) (*BloodBank, *app.Msg, error) {
-	const (
-		BBANK_FETCH_SQL = "SELECT *  FROM bloodbanks"
-	)
+func BloodBanks(page int, db *services.MySQL) (*BloodBank, *app.Msg, error) {
 
 	return &BloodBank{}, nil, nil
 }
 
-func InsertBloodBank(name string, cs *services.Cassandra) (string, *app.Msg) {
+func InsertBloodBank(name string, db *services.MySQL) (string, *app.Msg) {
 	const (
-		BBANK_INSERT_SQL = "INSERT INTO bloodbanks (userId, id, filepath, stage) VALUES (?, ?, ?, ?)"
+		BBANK_INSERT_SQL = "INSERT INTO bloodbanks () VALUES (?, ?, ?, ?)"
 	)
-	if err := cs.Query(BBANK_INSERT_SQL, name).Exec(); err != nil {
-		return "", app.NewErrMsg(err.Error())
-	}
-	return id, nil
+	return "", nil
 }
 
-func UpdateBloodBank(id int, name string, cs *services.Cassandra) (string, *app.Msg) {
+func UpdateBloodBank(id int, name string, db *services.MySQL) (string, *app.Msg) {
 	const (
 		BBANK_UPDATE_SQL = ""
 	)
-	if err := cs.Query(BBANK_UPDATE_SQL, id, name).Exec(); err != nil {
-		return "", app.NewErrMsg(err.Error())
-	}
-	return id, nil
+	return "", nil
 }
 
-func FetchBloodBankDetails(jobId, userId string, cs *services.Cassandra) (string, *app.Msg) {
+func FetchBloodBankDetails(id int, db *services.MySQL) (string, *app.Msg) {
 	const (
 		JOB_FETCH_SQL = "SELECT (stage) FROM bloodcare_jobs WHERE id=? AND userId=?"
 	)
-	var stage string
-	iter := cs.Query(JOB_FETCH_SQL, jobId, userId).Iter()
-
-	ok := iter.Scan(&stage)
-	if !ok {
-		return "", app.NewErrMsg("Invalid Job Id")
-	}
-
-	return stage, nil
+	return "", nil
 }

@@ -12,12 +12,12 @@ import (
 // AdminHandler hold the services used for login & auth
 type AdminHandler struct {
 	*BaseHandler
-	CS *services.Cassandra
+	DB *services.MySQL
 }
 
 //NewAdminHandler is the AdminHandler constructor
-func NewAdminHandler(b *BaseHandler, cs *services.Cassandra) *AdminHandler {
-	return &AdminHandler{BaseHandler: b, CS: cs}
+func NewAdminHandler(b *BaseHandler, db *services.MySQL) *AdminHandler {
+	return &AdminHandler{BaseHandler: b, DB: db}
 }
 
 //ShowLogin displays the login screen
@@ -34,7 +34,7 @@ func (a *AdminHandler) ShowLogin(c web.C, w http.ResponseWriter, r *http.Request
 func (a *AdminHandler) DoLogin(c web.C, w http.ResponseWriter, r *http.Request) *app.Err {
 	email := r.FormValue("email")
 	pass := r.FormValue("password")
-	admin, msg, err := models.AuthAdmin(email, pass, a.CS)
+	admin, msg, err := models.AuthAdmin(email, pass, a.DB)
 	if err != nil {
 		return app.InternalServerError.SetErr(err.Error())
 	}
@@ -72,7 +72,7 @@ func (a *AdminHandler) ShowAdmins(c web.C, w http.ResponseWriter, r *http.Reques
 	data := a.getTplVars(c)
 	data["selAdministrators"] = "active"
 
-	admins, err := models.ListAdmins(a.CS)
+	admins, err := models.ListAdmins(a.DB)
 	if err != nil {
 		return app.InternalServerError.SetErr(err.Error())
 	}

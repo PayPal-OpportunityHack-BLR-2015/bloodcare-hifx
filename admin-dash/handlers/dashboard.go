@@ -11,11 +11,11 @@ import (
 //DashboardHandler holds the services used for showing the dashboard
 type DashboardHandler struct {
 	*BaseHandler
-	CS *services.Cassandra
+	DB *services.MySQL
 }
 
-func NewDashboardHandler(bh *BaseHandler, cs *services.Cassandra) *DashboardHandler {
-	return &DashboardHandler{BaseHandler: bh, CS: cs}
+func NewDashboardHandler(bh *BaseHandler, db *services.MySQL) *DashboardHandler {
+	return &DashboardHandler{BaseHandler: bh, DB: db}
 }
 
 //ShowDashboard shows the dashboard
