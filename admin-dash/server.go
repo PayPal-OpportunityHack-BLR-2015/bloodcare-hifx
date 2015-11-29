@@ -94,12 +94,12 @@ func main() {
 	config = app.NewConfig(assetsUrl)
 	mysql := services.NewMySQL(mysqlHost, 100)
 
-
 	bH := handlers.NewBaseHandler(logr, config, templates, cookieHandler)
 
 	adminH := handlers.NewAdminHandler(bH, mysql)
 	dashH := handlers.NewDashboardHandler(bH, mysql)
 	bloodbankH := handlers.NewBloodBankHandler(bH, mysql)
+	donorsH := handlers.NewDonorHandler(bH, mysql)
 
 	goji.Get("/login/", http.RedirectHandler("/login", 301))
 	goji.Get("/login", bH.Route(adminH.ShowLogin))
@@ -112,10 +112,11 @@ func main() {
 	admin.Use(middleware.NewAuth(cookieHandler))
 
 	admin.Get("/", bH.Route(dashH.ShowDashboard))
+	admin.Get("/administrators", bH.Route(adminH.ShowAdmins))
 	admin.Get("/bloodbanks", bH.Route(bloodbankH.FetchBloodBanks))
-	admin.Get("/bloodbank", bH.Route(bloodbankH.ShowBloodBankForm))
-	admin.Post("/bloodbank", bH.Route(bloodbankH.InsertBloodBank))
-	admin.Get("/bloodbank/:id", bH.Route(bloodbankH.ShowOneBloodBank))
+	admin.Get("/donors", bH.Route(donorsH.FetchDonors))
+	admin.Get("/requests", bH.Route(donorsH.FetchDonors))
+	admin.Get("/logout", bH.Route(adminH.DoLogout))
 
 	goji.Serve()
 }

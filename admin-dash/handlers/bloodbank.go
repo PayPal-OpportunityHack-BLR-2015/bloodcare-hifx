@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/admin-dash/app"
+	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/admin-dash/models"
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/admin-dash/services"
 	"github.com/zenazn/goji/web"
 )
@@ -19,11 +20,11 @@ func NewBloodBankHandler(bh *BaseHandler, db *services.MySQL) *BloodBankHandler 
 }
 
 //ShowBloodBankForm shows the  input form
-func (f *BloodBankHandler) ShowBloodBankForm(c web.C, w http.ResponseWriter, r *http.Request) *app.Err {
-	data := f.getTplVars(c)
+func (b *BloodBankHandler) ShowBloodBankForm(c web.C, w http.ResponseWriter, r *http.Request) *app.Err {
+	data := b.getTplVars(c)
 	data["selBloodBank"] = "active"
 
-	err := f.RenderTpl(w, "bloodbank.html", &data)
+	err := b.RenderTpl(w, "bloodbank.html", &data)
 	if err != nil {
 		return app.InternalServerError.SetErr(err.Error())
 	}
@@ -31,7 +32,20 @@ func (f *BloodBankHandler) ShowBloodBankForm(c web.C, w http.ResponseWriter, r *
 }
 
 //TODO:unit tests
-func (f *BloodBankHandler) FetchBloodBanks(c web.C, w http.ResponseWriter, r *http.Request) *app.Err {
+func (b *BloodBankHandler) FetchBloodBanks(c web.C, w http.ResponseWriter, r *http.Request) *app.Err {
+	data := b.getTplVars(c)
+	data["selBloodBank"] = "active"
+
+	bloodBanks, err := models.ListBloodBanks(b.DB)
+	if err != nil {
+		return app.InternalServerError.SetErr(err.Error())
+	}
+	data["bloodBanks"] = bloodBanks
+
+	err = b.RenderTpl(w, "bloodbanks.html", &data)
+	if err != nil {
+		return app.InternalServerError.SetErr(err.Error())
+	}
 	return nil
 }
 

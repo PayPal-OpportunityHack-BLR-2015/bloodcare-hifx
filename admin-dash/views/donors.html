@@ -10,7 +10,7 @@
             <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Blood Banks
+                        Donors
                         <span class=" pull-right">
                             <!--<button type="button" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> Add</button>-->
                         </span>
@@ -20,8 +20,11 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th class="hidden-phone">Type</th>
+                                <th class="hidden-phone">Mobile</th>
+                                <th class="hidden-phone">Blood</th>
+                                <th class="hidden-phone">Gender</th>
                                 <th class="hidden-phone">Location</th>
+                                <th class="hidden-phone">Map</th>
                                 <th>CreatedOn</th>
                                 <th></th>
                                 <th></th>
@@ -29,11 +32,16 @@
                             </thead>
                             <tbody>
 
-                            {{range .bloodBanks}}
+                            {{range .donors}}
                             <tr>
                                 <td>{{.Name}}</td>
-                                <td class="hidden-phone">{{.Type}}</td>
+                                <td class="hidden-phone">{{.Mobile}}</td>
+                                <td class="hidden-phone">{{.Blood}}</td>
+                                <td class="hidden-phone">{{.Gender}}</td>
                                 <td class="hidden-phone">{{.Location}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-round btn-danger">Map</button>
+                                </td>
                                 <td class="hidden-phone">{{.Created}}</td>
                                 <td><span class="badge bg-success">Active</span></td>
                                 <td>

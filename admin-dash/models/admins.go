@@ -31,7 +31,7 @@ func AuthAdmin(email, pass string, db *services.MySQL) (*Admin, *app.Msg, error)
 		return nil, app.NewErrMsg("The email or password is empty."), nil
 	}
 
-	rows, err  := db.Query(ADMIN_AUTH_SQL, email)
+	rows, err := db.Query(ADMIN_AUTH_SQL, email)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -64,12 +64,12 @@ func ListAdmins(db *services.MySQL) (*Admins, error) {
 		password string
 		status   string
 	)
-	rows, err  := db.Query(ADMINS_LIST_SQL)
+	rows, err := db.Query(ADMINS_LIST_SQL)
 	if err != nil {
 		return nil, err
 	}
 
-	for rows.Next(){
+	for rows.Next() {
 		rows.Scan(&id, &name, &email, &password, &status)
 		results = append(results,
 			&Admin{
