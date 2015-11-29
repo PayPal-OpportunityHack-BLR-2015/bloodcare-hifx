@@ -74,7 +74,7 @@ func main() {
 	}
 	redisService, reErr := services.NewRedis(envSrc.RedisUrl)
 	reErr = reErr
-	app.Chk(reErr)
+	//app.Chk(reErr)
 
 	sqlConnectionStringFormat := "%s:%s@tcp(%s:%s)/%s"
 	sqlConnectionString := fmt.Sprintf(sqlConnectionStringFormat, envSrc.MysqlUser, envSrc.MysqlPassword,

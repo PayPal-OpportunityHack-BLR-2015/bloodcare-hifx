@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/app"
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/mobile-api/services"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -18,11 +19,7 @@ type User struct {
 }
 type Users []*User
 
-func (u *User) String() string {
-	return u.Name
-}
-
-func (u *User) ValidateUser() (bool, string) {
+func ValidateUser(u *User, ms *services.MySQL) (bool, string) {
 	if len(u.Name) == 0 {
 		return false, "Name is empty"
 	}
@@ -39,7 +36,25 @@ func (u *User) ValidateUser() (bool, string) {
 		return false, "Invalid blood type"
 	}
 
+	if PhoneExists(u.Mobile, ms) == true {
+		return false, "Mobile number exists"
+	}
+
 	return true, ""
+}
+
+func PhoneExists(mobile string, ms *services.MySQL) bool {
+	query := "SELECT id FROM users WHERE mobile=?"
+	res, _ := ms.Query(query, mobile)
+
+	if res.Next() {
+		var userId int
+		res.Scan(&userId)
+		if userId > 0 {
+			return true
+		}
+	}
+	return false
 }
 
 func IsValidBloodType(bloodType string) bool {
@@ -59,22 +74,32 @@ func IsValidBloodType(bloodType string) bool {
 	return false
 }
 
-func RegisterUser(u *User, ms *services.MySQL) (bool, *app.Msg, error) {
+func RegisterUser(u *User, ms *services.MySQL) (int64, *app.Msg, error) {
 
 	// const (
 	// 	ADMIN_AUTH_SQL = "SELECT id, name, password  FROM users WHERE email=?"
 	// )
 	// var id, name, bcryptpass string
-	status, error := u.ValidateUser()
+	status, error := ValidateUser(u, ms)
 	if status == false {
-		return false, app.NewErrMsg(error), nil
+		return 0, app.NewErrMsg(error), nil
 	}
-	query := "INSERT INTO users(name, mobile, password, blood, sex, lat, lng, place_id) VALUES(?,?,?,?,?,?,?,?)"
-	_, dbError := ms.Exec(query, u.Name, u.Mobile, u.Password, u.Blood, u.Sex, u.Lat, u.Lng, u.PlaceId)
+
+	passwordHash, _ := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
+	query := "INSERT INTO users(name, mobile, password, blood, sex, location, place_id) VALUES(?,?,?,?,?, POINT(" + u.Lat + ", " + u.Lng + "),?)"
+	res, dbError := ms.Exec(query, u.Name, u.Mobile, string(passwordHash[:]), u.Blood, u.Sex, u.PlaceId)
 	if dbError != nil {
-		return false, nil, dbError
+		return 0, nil, dbError
+	} else {
+		id, err := res.LastInsertId()
+		if err != nil {
+			return 0, nil, err
+		} else {
+			return id, nil, nil
+		}
 	}
-	return false, app.NewErrMsg(error), nil
+
+	return 0, app.NewErrMsg(error), nil
 	/*
 		dbResult, dbError := ms.Query(ADMIN_AUTH_SQL, email)
 		if dbError != nil {

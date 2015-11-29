@@ -32,23 +32,3 @@ func (m *MySQL) Query(query string, values ...interface{}) (*sql.Rows, error) {
 func (m *MySQL) Exec(query string, values ...interface{}) (sql.Result, error) {
 	return m.db.Exec(query, values...)
 }
-
-/*func (m *MySQL) GetVolunteer(email string) (models.Volunteer, bool, error) {
-
-	var volunteer models.Volunteer
-	dbResult, dbError := m.db.Query("SELECT id, name, email, password "+
-		"FROM users WHERE email = ?", email)
-
-	if dbError != nil {
-		return volunteer, false, dbError
-	}
-	defer dbResult.Close()
-
-	if dbResult.Next() {
-		dbResult.Scan(&volunteer.Id, &volunteer.Name, &volunteer.Password)
-		return volunteer, true, nil
-	} else {
-		return volunteer, false, nil
-	}
-}
-*/
