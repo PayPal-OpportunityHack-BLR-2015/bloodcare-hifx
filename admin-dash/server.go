@@ -13,7 +13,6 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/goji/glogrus"
 	"github.com/gorilla/securecookie"
-	"github.com/saj1th/envtoflag"
 	"github.com/zenazn/goji"
 	"github.com/zenazn/goji/web"
 	gmiddleware "github.com/zenazn/goji/web/middleware"
@@ -65,46 +64,42 @@ func main() {
 	// }()
 
 	var (
-		mode           string
-		cassandra_host string
-		redis_host     string
-		upload_path    string
-		assets_url     string
-		config         *app.Config
-		errors         []string
+		mode      string
+		mysqlHost string
+		redisHost string
+		assetsUrl string
+		config    *app.Config
+		errors    []string
 	)
 	flag.StringVar(&mode, "mode", "dev", "dev|debug|prod")
-	flag.StringVar(&assets_url, "assets-url", "", "http://static.assets.url")
-	flag.StringVar(&cassandra_host, "cassandra-host", "", "cassandra.host")
-	flag.StringVar(&redis_host, "redis-host", "", "redis.host")
-	flag.StringVar(&upload_path, "upload-path", "", "upload.path")
-	envtoflag.Parse(appName)
+	flag.StringVar(&assetsUrl, "assets-url", "", "http://static.assets.url")
+	flag.StringVar(&mysqlHost, "mysql-host", "", "mysql.host")
+	flag.StringVar(&redisHost, "redis-host", "", "redis.host")
+	app.EnvParse(appName)
 
-	if assets_url == "" {
+	if assetsUrl == "" {
 		errors = append(errors, "assets-url")
 	}
-	if cassandra_host == "" {
-		errors = append(errors, "cassandra-host")
+	if mysqlHost == "" {
+		errors = append(errors, "mysql-host")
 	}
-	if redis_host == "" {
+	if redisHost == "" {
 		errors = append(errors, "redis-host")
 	}
-	if upload_path == "" {
-		errors = append(errors, "upload-path")
-	}
+
 	app.PrintWelcome()
 	app.ParseErrors(errors)
 
 	logr.Level = app.GetLogrMode(mode)
-	config = app.NewConfig(assets_url, upload_path)
+	config = app.NewConfig(assetsUrl)
+	mysql := services.NewMySQL(mysqlHost, 100)
 
-	cassandra := services.NewCassandra(cassandra_host, "bloodcare")
-	minions := services.NewMinion(redis_host)
+
 	bH := handlers.NewBaseHandler(logr, config, templates, cookieHandler)
 
-	adminH := handlers.NewAdminHandler(bH, cassandra)
-	dashH := handlers.NewDashboardHandler(bH, cassandra)
-	bloodbankH := handlers.NewBloodBankHandler(bH, cassandra, minions)
+	adminH := handlers.NewAdminHandler(bH, mysql)
+	dashH := handlers.NewDashboardHandler(bH, mysql)
+	bloodbankH := handlers.NewBloodBankHandler(bH, mysql)
 
 	goji.Get("/login/", http.RedirectHandler("/login", 301))
 	goji.Get("/login", bH.Route(adminH.ShowLogin))

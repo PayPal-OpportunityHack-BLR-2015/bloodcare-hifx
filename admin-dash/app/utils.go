@@ -24,11 +24,11 @@ func PrintWelcome() {
 	buf := new(bytes.Buffer)
 	buf.Write([]byte{'\033', '[', '3', '2', 'm'})
 	fmt.Fprint(buf, "\n\n\n")
-	fmt.Fprint(buf, "     _     _                 _                   	 ")
-	fmt.Fprint(buf, "    | |__ | | ___   ___   __| | ___ __ _ _ __ ___   ")
-	fmt.Fprint(buf, "    | '_ \\| |/ _ \\ / _ \\ / _` |/ __/ _` | '__/ _ \\  ")
-	fmt.Fprint(buf, "    | |_) | | (_) | (_) | (_| | (_| (_| | | |  __/  ")
-	fmt.Fprint(buf, "    |_.__/|_|\\___/ \\___/ \\__,_|\\___\\__,_|_|  \\___|  ")
+	fmt.Fprint(buf, "     _     _                 _                   	 \n")
+	fmt.Fprint(buf, "    | |__ | | ___   ___   __| | ___ __ _ _ __ ___   \n")
+	fmt.Fprint(buf, "    | '_ \\| |/ _ \\ / _ \\ / _` |/ __/ _` | '__/ _ \\  \n")
+	fmt.Fprint(buf, "    | |_) | | (_) | (_) | (_| | (_| (_| | | |  __/  \n")
+	fmt.Fprint(buf, "    |_.__/|_|\\___/ \\___/ \\__,_|\\___\\__,_|_|  \\___|  \n")
 	fmt.Fprint(buf, "     \n")
 	fmt.Fprint(buf, "     \n")
 	buf.Write([]byte{'\033', '[', '0', 'm'})
@@ -73,13 +73,13 @@ func Debug(data interface{}) {
 func GetLogrMode(mode string) logrus.Level {
 	switch mode {
 	case MODE_DEV:
-		return logrus.Info
+		return logrus.InfoLevel
 	case MODE_PROD:
-		return logrus.Warn
+		return logrus.WarnLevel
 	case MODE_DEBUG:
-		return logrus.Debug
+		return logrus.DebugLevel
 	}
-	return logrus.Warn
+	return logrus.WarnLevel
 }
 
 func TruncWords(s string, n int) string {

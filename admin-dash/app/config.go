@@ -14,7 +14,6 @@ const (
 
 type Config struct {
 	AssetsUrl  string
-	UploadPath string
 }
 
 func (c Config) String() string {
@@ -22,6 +21,6 @@ func (c Config) String() string {
 }
 
 //NewConfig creates a config object
-func NewConfig(assetsurl, uploadPath string) *Config {
-	return &Config{AssetsUrl: assetsurl, UploadPath: uploadPath}
+func NewConfig(assetsurl string) *Config {
+	return &Config{AssetsUrl: assetsurl}
 }
