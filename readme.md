@@ -26,8 +26,11 @@ http://blooddonorcentral.org/ aims to eradicate blood donor shortage from India 
 
 #Tech Stack
 >Apis/Services built with: Go
+
 >Datastores: Mysql & Redis
+
 >Admin dashboard: Go 
+
 >Mobile App: Android
 
 -----------
