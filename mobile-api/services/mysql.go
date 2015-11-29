@@ -29,6 +29,10 @@ func (m *MySQL) Query(query string, values ...interface{}) (*sql.Rows, error) {
 	return m.db.Query(query, values...)
 }
 
+func (m *MySQL) QueryRow(query string, values ...interface{}) *sql.Row {
+	return m.db.QueryRow(query, values...)
+}
+
 func (m *MySQL) Exec(query string, values ...interface{}) (sql.Result, error) {
 	return m.db.Exec(query, values...)
 }

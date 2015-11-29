@@ -10,7 +10,7 @@
             <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Blood Banks
+                        Requests
                         <span class=" pull-right">
                             <!--<button type="button" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> Add</button>-->
                         </span>
@@ -19,9 +19,12 @@
                         <table class="table  table-hover general-table mtable">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th class="hidden-phone">Type</th>
+                                <th>User</th>
+                                <th class="hidden-phone">Date</th>
                                 <th class="hidden-phone">Location</th>
+                                <th class="hidden-phone">Blood</th>
+                                <th class="hidden-phone">Comments</th>
+                                <th class="hidden-phone">Mobile</th>
                                 <th>CreatedOn</th>
                                 <th></th>
                                 <th></th>
@@ -29,13 +32,15 @@
                             </thead>
                             <tbody>
 
-                            {{range .bloodBanks}}
+                            {{range .requests}}
                             <tr>
-                                <td>{{.Name}}</td>
-                                <td class="hidden-phone">{{.Type}}</td>
+                                <td>{{.UserName}}</td>
+                                <td class="hidden-phone">{{.Date}}</td>
                                 <td class="hidden-phone">{{.Location}}</td>
+                                <td class="hidden-phone">{{.Blood}}</td>
+                                <td class="hidden-phone">{{.Comments}}</td>
+                                <td class="hidden-phone">{{.Mobile}}</td>
                                 <td class="hidden-phone">{{.Created}}</td>
-                                <td><span class="badge bg-success">Active</span></td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#myModal" class="btnLink" href="/administrators/view/{{.ID}}">
                                     <i class="fa fa-edit"></i>Edit

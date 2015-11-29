@@ -3,24 +3,55 @@ package models
 import (
 	"fmt"
 
+	"github.com/paulmach/go.geo"
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/admin-dash/app"
 	"github.com/PayPal-OpportunityHack-BLR-2015/bloodcare-hifx/admin-dash/services"
 )
 
 //BloodBank model
 type BloodBank struct {
-	Id   int
-	Name string
-	// Add Fields here
+	ID       string
+	Name     string
+	Type     string
+	Location *geo.Point
+	Created  string
 }
+type BloodBanks []*BloodBank
 
 func (a *BloodBank) String() string {
-	return fmt.Sprintf("id:%s", a.Id)
+	return fmt.Sprintf("id:%s", a.ID)
 }
 
-func BloodBanks(page int, db *services.MySQL) (*BloodBank, *app.Msg, error) {
+func ListBloodBanks(db *services.MySQL) (*BloodBanks, error) {
+	const (
+		BBANK_LIST_SQL = "SELECT id, name, type, location, created FROM organisations"
+	)
+	var (
+		results  BloodBanks
+		id       string
+		name     string
+		typ      string
+		location *geo.Point
+		created  string
+	)
+	rows, err := db.Query(BBANK_LIST_SQL)
+	if err != nil {
+		return nil, err
+	}
 
-	return &BloodBank{}, nil, nil
+	for rows.Next() {
+		rows.Scan(&id, &name, &typ, &location, &created)
+		results = append(results,
+			&BloodBank{
+				ID:       id,
+				Name:     name,
+				Type:     typ,
+				Location: location,
+				Created:  created,
+			})
+	}
+	return &results, nil
+
 }
 
 func InsertBloodBank(name string, db *services.MySQL) (string, *app.Msg) {

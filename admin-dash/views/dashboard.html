@@ -7,7 +7,7 @@
 <section class="wrapper">
 <!--mini statistics start-->
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <section class="panel">
             <div class="panel-body">
                 <div class="top-stats-panel">
@@ -17,19 +17,19 @@
                     </div>
                     <ul class="gauge-meta clearfix">
                         <li id="gauge-textfield" class="pull-left gauge-value"></li>
-                        <li class="pull-right gauge-title">Safe</li>
+                        <li class="pull-right gauge-title"></li>
                     </ul>
                 </div>
             </div>
         </section>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <section class="panel">
             <div class="panel-body">
                 <div class="top-stats-panel">
                     <div class="daily-visit">
-                        <h4 class="widget-h">Monthly Registrations</h4>
-                        <div id="monthly-visit-chart" style="width:100%; height: 100px; display: block">
+                        <h4 class="widget-h">Daily Signups</h4>
+                        <div id="daily-visit-chart" style="width:100%; height: 100px; display: block">
 
                         </div>
                         <ul class="chart-meta clearfix">
@@ -41,11 +41,34 @@
             </div>
         </section>
     </div>
-    
+    <div class="col-md-4">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="top-stats-panel">
+                    <h4 class="widget-h">Daily Donations</h4>
+                    <div class="bar-stats">
+                        <ul class="progress-stat-bar clearfix">
+                            <li data-percent="60%"><span class="progress-stat-percent blue"></span></li>
+                            <li data-percent="40%"><span class="progress-stat-percent pink"></span></li>
+                            <li data-percent="50%"><span class="progress-stat-percent"></span></li>
+                            <li data-percent="30%"><span class="progress-stat-percent yellow-b"></span></li>
+                        </ul>
+                        <ul class="bar-legend">
+                            <li><span class="bar-legend-pointer blue"></span> Maharashtra</li>
+                            <li><span class="bar-legend-pointer pink"></span> Karnataka</li>
+                            <li><span class="bar-legend-pointer green"></span> TamilNadu</li>
+                            <li><span class="bar-legend-pointer yellow-b"></span> Kerala</li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>
 <!--mini statistics end-->
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <!--earning graph start-->
         <section class="panel">
             <header class="panel-heading">
@@ -61,42 +84,6 @@
         </section>
         <!--earning graph end-->
     </div>
-    <div class="col-md-4">
-        <!--widget graph start-->
-        <section class="panel">
-            <div class="panel-body">
-                <div class="monthly-stats pink">
-                    <div class="clearfix">
-                        <h4 class="pull-left">Blood Donations</h4>
-                        <!-- Nav tabs -->
-                        <div class="btn-group pull-right stat-tab">
-                            <a href="#line-chart" class="btn stat-btn active" data-toggle="tab"><i class="ico-stats"></i></a>
-                            <a href="#bar-chart" class="btn stat-btn" data-toggle="tab"><i class="ico-bars"></i></a>
-                        </div>
-                    </div>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="line-chart">
-                            <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-min-spot-color="false" data-max-spot-color="false" data-line-color="#ffffff" data-spot-color="#ffffff" data-fill-color="" data-highlight-line-color="#ffffff" data-highlight-spot-color="#e1b8ff" data-spot-radius="3" data-data="[100,200,459,234,600,800,345,987,675,457,765]">
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="bar-chart">
-                            <div class="sparkline" data-type="bar" data-resize="true" data-height="75" data-width="90%" data-bar-color="#d4a7f5" data-bar-width="10" data-data="[300,200,500,700,654,987,457,300,876,454,788,300,200,500,700,654,987,457,300,876,454,788]"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="circle-sat">
-                    <ul>
-                        <li class="left-stat-label"><span class="sell-percent">60%</span><span>?</span></li>
-                        <li><span class="epie-chart" data-percent="45"><span class="percent"></span></span></li>
-                        <li class="right-stat-label"><span class="sell-percent">40%</span><span>?</span></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <!--widget graph end-->
-       
-    </div>
 </div>
 
 </section>
@@ -104,20 +91,20 @@
 <!--main content end-->
 {{ end }}
 {{ define "fscripts" }} 
-    <script src="{{.assetsurl}}/js/charts/jquery.flot.js"></script>
-    <script src="{{.assetsurl}}/js/charts/jquery.flot.tooltip.min.js"></script>
-    <script src="{{.assetsurl}}/js/charts/jquery.flot.resize.min.js"></script>
-    <script src="{{.assetsurl}}/js/charts/jquery.flot.pie.resize.js"></script>
-    <script src="{{.assetsurl}}/js/charts/jquery.flot.animator.min.js"></script>
-    <script src="{{.assetsurl}}/js/charts/jquery.flot.growraf.js"></script>
-    <script src="{{.assetsurl}}/js/charts/gauge.js"></script>
-    <script src="{{.assetsurl}}/js/charts/morris.min.js"></script>
-    <script src="{{.assetsurl}}/js/charts/raphael.min.js"></script>
-    <script src="{{.assetsurl}}/js/charts/jquery-jvectormap-1.2.2.min.js"></script>
-    <script src="{{.assetsurl}}/js/charts/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="{{.assetsurl}}/js/charts/jquery.sparkline.js"></script>
-    <script src="{{.assetsurl}}/js/charts/jquery.easypiechart.min.js"></script>
-    <script src="{{.assetsurl}}/js/dashboard.js"></script>
+    <script src="{{.assetsurl}}/js/chart/jquery.flot.js"></script>
+    <script src="{{.assetsurl}}/js/chart/jquery.flot.tooltip.min.js"></script>
+    <script src="{{.assetsurl}}/js/chart/jquery.flot.resize.min.js"></script>
+    <script src="{{.assetsurl}}/js/chart/jquery.flot.pie.resize.js"></script>
+    <script src="{{.assetsurl}}/js/chart/jquery.flot.animator.min.js"></script>
+    <script src="{{.assetsurl}}/js/chart/jquery.flot.growraf.js"></script>
+    <script src="{{.assetsurl}}/js/chart/gauge.js"></script>
+    <script src="{{.assetsurl}}/js/chart/morris.min.js"></script>
+    <script src="{{.assetsurl}}/js/chart/raphael.min.js"></script>
+    <script src="{{.assetsurl}}/js/chart/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="{{.assetsurl}}/js/chart/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="{{.assetsurl}}/js/chart/jquery.sparkline.js"></script>
+    <script src="{{.assetsurl}}/js/chart/jquery.easypiechart.min.js"></script>
+    <script src="{{.assetsurl}}/js/d9.js"></script>
     <script src="{{.assetsurl}}/js/jquery.customSelect.min.js" ></script>
     <script src="{{.assetsurl}}/js/css3clock.js"></script>
     <script src="{{.assetsurl}}/js/clndr.js"></script>

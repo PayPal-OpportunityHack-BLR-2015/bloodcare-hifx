@@ -49,3 +49,15 @@ func (u *UserHandler) DoRegistration(c web.C, w http.ResponseWriter, r *http.Req
 
 	return nil
 }
+
+func (u *UserHandler) DoLogin(c web.C, w http.ResponseWriter, r *http.Request) *app.Err {
+	mobile := r.FormValue("mobile")
+	password := r.FormValue("password")
+	user, msg := models.AuthenticateUser(&mobile, &password, u.MS)
+	if user == nil {
+		u.Respond(w, 401, &map[string]string{"error": msg.Message})
+	} else {
+		u.Respond(w, 200, &map[string]int64{"id": user.Id})
+	}
+	return nil
+}

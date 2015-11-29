@@ -88,6 +88,7 @@ func main() {
 
 	goji.Post("/register", baseHandler.Route(userHandler.DoRegistration))
 	goji.Post("/bloodReq", baseHandler.Route(reqHandler.MakeBloodRequest))
+	goji.Post("/login", baseHandler.Route(userHandler.DoLogin))
 	goji.Delete("/bloodReq", baseHandler.Route(reqHandler.RemoveBloodRequest))
 	goji.NotFound(baseHandler.NotFound)
 
