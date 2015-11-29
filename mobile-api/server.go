@@ -84,9 +84,13 @@ func main() {
 	//TODO check
 	baseHandler := handlers.NewBaseHandler(logr, config)
 	userHandler := handlers.NewUserHandler(baseHandler, redisService, mySqlService)
+	reqHandler := handlers.NewRequestHandler(baseHandler, redisService, mySqlService)
 
 	goji.Post("/register", baseHandler.Route(userHandler.DoRegistration))
 	goji.Post("/login", baseHandler.Route(userHandler.DoLogin))
+	goji.Get("/bloodReq", baseHandler.Route(reqHandler.RemoveBloodRequest))
+	goji.Post("/bloodReq", baseHandler.Route(reqHandler.MakeBloodRequest))
+	goji.Delete("/bloodReq", baseHandler.Route(reqHandler.RemoveBloodRequest))
 	goji.NotFound(baseHandler.NotFound)
 
 	goji.Serve()
