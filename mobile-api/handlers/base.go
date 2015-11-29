@@ -46,7 +46,7 @@ func (b *BaseHandler) Route(h AppH) func(web.C, http.ResponseWriter, *http.Reque
 
 //NotFound
 func (b *BaseHandler) NotFound(c web.C, w http.ResponseWriter, r *http.Request) {
-	b.Respond(w, 404, "{}")
+	b.Respond(w, 404, []string{})
 }
 
 // Respond writes an HTTP response to the given resp,

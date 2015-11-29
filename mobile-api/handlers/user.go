@@ -36,18 +36,16 @@ func (u *UserHandler) DoRegistration(c web.C, w http.ResponseWriter, r *http.Req
 	user.Sex = r.FormValue("sex")
 	user.Lat = r.FormValue("lat")
 	user.Lng = r.FormValue("lng")
-	_, _, err := models.RegisterUser(&user, u.MS)
+	id, msg, err := models.RegisterUser(&user, u.MS)
 	if err != nil {
 		return app.InternalServerError.SetErr(err.Error())
 	}
-	/*user, userExist, err := v.MySql.Getuser(email)
 
-
-	if !userExist {
-		v.Error(&c, w, *appErr.NotFoundErrors("user"))
-		return
+	if id != 0 {
+		u.Respond(w, 200, &map[string]int64{"id": id})
+	} else {
+		u.Respond(w, 400, &map[string]string{"error": msg.Message})
 	}
-	v.Respond(w, 200, user)
-	*/
+
 	return nil
 }
