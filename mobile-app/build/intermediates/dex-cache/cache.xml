@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="97f7e239e86ef994de894818fdd8a71d2e89d6aa">
+        <dex dex="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/pre-dexed/debug/classes-e78dbf287e944cfffd5b68539d087e70140d40f6.jar" />
+    </item>
+    <item
+        jar="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/pre-dexed/debug/classes-e591323a408828c78a0a5aea83fa50196456c7eb.jar" />
+    </item>
+    <item
+        jar="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/pre-dexed/debug/classes-a6b215e574bc9df37ea750d1728026e23ed0bd92.jar" />
+    </item>
+    <item
+        jar="/Users/sunilnjose/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/6.1.0/63735f48b82bcd24cdd33821342428252eb1ca5a/butterknife-6.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="63735f48b82bcd24cdd33821342428252eb1ca5a">
+        <dex dex="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/pre-dexed/debug/butterknife-6.1.0-b2c2fe1d37ef7d3bd6b46e3787e21b0d76e824ac.jar" />
+    </item>
+    <item
+        jar="/Users/sunilnjose/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.0/7ff0e000d1e27e356567f56c92af3b8ab912636f/picasso-2.5.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="7ff0e000d1e27e356567f56c92af3b8ab912636f">
+        <dex dex="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/pre-dexed/debug/picasso-2.5.0-7a6b047b77402d2d2c12ae691a162f29514be3a7.jar" />
+    </item>
+    <item
+        jar="/Users/sunilnjose/Documents/Projects/bloodCare/app/libs/volley.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="607b33c107d4f57d20130d71bec331452bba282f">
+        <dex dex="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/pre-dexed/debug/volley-60b80c74cfec6c39ae25b8e4de60fb44116398c3.jar" />
+    </item>
+    <item
+        jar="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-85c9dfc8e76e367bc28827127b0dc273907182a2.jar" />
+    </item>
+    <item
+        jar="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/pre-dexed/debug/classes-9bf8222dd5051cba17ee947f5278b798e3aee972.jar" />
+    </item>
+    <item
+        jar="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/pre-dexed/debug/classes-9496a7ab56a7c8bddd6ccd38503114c671e590a9.jar" />
+    </item>
+    <item
+        jar="/Users/sunilnjose/Documents/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/sunilnjose/Documents/Projects/bloodCare/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-55d8270233da4cb6820dabd807ba763a1b7dd67e.jar" />
+    </item>
+
+</items>

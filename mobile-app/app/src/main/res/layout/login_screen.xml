@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fbaf17"
+     >
+  <ImageView
+    android:layout_centerInParent="true"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+      android:scaleType="centerCrop"
+      android:src="@mipmap/splashscreen"
+
+      />
+
+    <RelativeLayout
+        android:id="@+id/innerRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        android:layout_alignParentBottom="true" >
+       
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="?android:listDivider"
+            android:orientation="horizontal"
+            android:showDividers="middle"
+            android:weightSum="2" >
+
+            <Button
+                android:text="@string/login_button"
+                android:id="@+id/login_btns"
+                android:background="@null"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </Button>
+
+
+
+            <Button
+                android:text="@string/edit_button"
+                android:id="@+id/register_btn"
+                android:background="@null"
+                android:layout_weight="1"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </Button>
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+   
+</RelativeLayout>
