@@ -30,7 +30,7 @@ func (u *UserHandler) MakeBloodRequest(c web.C, w http.ResponseWriter, r *http.R
 	bloodReq.Lat = r.FormValue("lat")
 	bloodReq.Lng = r.FormValue("lng")
 	bloodReq.PlaceId = r.FormValue("place_id")
-	_, appErr, err := models.CreateBloodRequest(&bloodReq, u.MS)
+	_, _, err := models.CreateBloodRequest(&bloodReq, u.MS)
 	if err != nil {
 		return app.InternalServerError.SetErr(err.Error())
 	}
