@@ -23,15 +23,16 @@ type Request struct {
 }
 type Requests []*Request
 
-func (a *Request) String() string {
+func (r *Request) String() string {
 	//TODO: Fix :(
-	return fmt.Sprintf("id:%s", a.ID)
+	return fmt.Sprintf("id:%s uid:% uname:% date:% loc:% place:% blood:% comments:% mobile:% created:% ",  r.ID, r.UserID, r.UserName, r.Date, r.Location, r.Place, r.Blood, r.Comments, r.Mobile, r.Created)
 }
 
 func ListRequests(db *services.MySQL) (*Requests, error) {
 	const (
-		DONORS_LIST_SQL = "SELECT requests.id, users.id, users.name, date_of_requirement, requests.location, requests.blood, requests.comments, requests.mobile, requests.created FROM `requests` JOIN users ON requests.user_id = users.id"
+		REQUEST_LIST_SQL = "SELECT requests.id, users.id, users.name, date_of_requirement, requests.location, requests.blood, requests.comments, requests.mobile, requests.created FROM `requests` JOIN users ON requests.user_id = users.id"
 	)
+
 	var (
 		results  Requests
 		id       string
@@ -45,18 +46,18 @@ func ListRequests(db *services.MySQL) (*Requests, error) {
 		mobile   string
 		created  string
 	)
-	rows, err := db.Query(DONORS_LIST_SQL)
+	rows, err := db.Query(REQUEST_LIST_SQL)
 	if err != nil {
 		return nil, err
 	}
 
 	for rows.Next() {
-		rows.Scan(&id, &userId, &userName,  &name, &date, &location, &blood, &comments, &created)
+		rows.Scan(&id, &userId,  &name, &date, &location, &blood, &comments, &mobile, &created)
 		results = append(results,
 			&Request{
 				ID:id,
 				UserID: userId,
-				UserName: userName,
+				UserName: name,
 				Date: date,
 				Location: location,
 				Blood:blood,
@@ -64,6 +65,18 @@ func ListRequests(db *services.MySQL) (*Requests, error) {
 				Mobile:mobile,
 				Created:created,
 			})
+
+		fmt.Println(Request{
+			ID:id,
+			UserID: userId,
+			UserName: userName,
+			Date: date,
+			Location: location,
+			Blood:blood,
+			Comments:comments,
+			Mobile:mobile,
+			Created:created,
+		})
 	}
 	return &results, nil
 

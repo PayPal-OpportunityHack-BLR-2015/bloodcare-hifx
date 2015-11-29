@@ -100,6 +100,7 @@ func main() {
 	dashH := handlers.NewDashboardHandler(bH, mysql)
 	bloodbankH := handlers.NewBloodBankHandler(bH, mysql)
 	donorsH := handlers.NewDonorHandler(bH, mysql)
+	requestsH := handlers.NewRequestHandler(bH, mysql)
 
 	goji.Get("/login/", http.RedirectHandler("/login", 301))
 	goji.Get("/login", bH.Route(adminH.ShowLogin))
@@ -115,7 +116,7 @@ func main() {
 	admin.Get("/administrators", bH.Route(adminH.ShowAdmins))
 	admin.Get("/bloodbanks", bH.Route(bloodbankH.FetchBloodBanks))
 	admin.Get("/donors", bH.Route(donorsH.FetchDonors))
-	admin.Get("/requests", bH.Route(donorsH.FetchDonors))
+	admin.Get("/requests", bH.Route(requestsH.FetchRequests))
 	admin.Get("/logout", bH.Route(adminH.DoLogout))
 
 	goji.Serve()
