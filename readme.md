@@ -34,7 +34,9 @@ http://blooddonorcentral.org/ aims to eradicate blood donor shortage from India 
 >Mobile App: Android
 
 -----------
-
+#Build 
+> Todo: migrate to http://getgb.io/
+-----------
 
 ###mobile-app
 The folder mobile-app contain the Android app
