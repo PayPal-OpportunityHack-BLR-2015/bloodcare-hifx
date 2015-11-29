@@ -7,7 +7,7 @@ import (
 )
 
 type User struct {
-	Id       string `json:"id,omitempty"`
+	Id       int64  `json:"id,omitempty"`
 	Name     string `json:"name,omitempty"`
 	Mobile   string `json:"email,omitempty"`
 	Password string `json:"password,omitempty"`
@@ -75,11 +75,6 @@ func IsValidBloodType(bloodType string) bool {
 }
 
 func RegisterUser(u *User, ms *services.MySQL) (int64, *app.Msg, error) {
-
-	// const (
-	// 	ADMIN_AUTH_SQL = "SELECT id, name, password  FROM users WHERE email=?"
-	// )
-	// var id, name, bcryptpass string
 	status, error := ValidateUser(u, ms)
 	if status == false {
 		return 0, app.NewErrMsg(error), nil
@@ -100,17 +95,20 @@ func RegisterUser(u *User, ms *services.MySQL) (int64, *app.Msg, error) {
 	}
 
 	return 0, app.NewErrMsg(error), nil
-	/*
-		dbResult, dbError := ms.Query(ADMIN_AUTH_SQL, email)
-		if dbError != nil {
-			return nil, nil, dbError
+}
+
+func AuthenticateUser(mobile, password *string, ms *services.MySQL) (*User, *app.Msg) {
+	u := User{}
+	query := "SELECT id, password  FROM users WHERE mobile = ?"
+	dbError := ms.QueryRow(query, mobile).Scan(&u.Id, &u.Password)
+	if dbError != nil {
+		return nil, app.NewErrMsg("Invalid credentials")
+	} else {
+		err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(*password))
+		if err != nil {
+			return nil, app.NewErrMsg("Invalid credentials")
 		}
-		defer dbResult.Close()
-		if dbResult.Next() {
-			var user *User
-			dbResult.Scan(user.Id, user.Name, user.Password)
-			return user, nil, nil
-		} else {
-			return nil, app.NewErrMsg("The email or password is incorrect."), nil
-		}*/
+
+		return &u, nil
+	}
 }

@@ -86,6 +86,7 @@ func main() {
 	userHandler := handlers.NewUserHandler(baseHandler, redisService, mySqlService)
 
 	goji.Post("/register", baseHandler.Route(userHandler.DoRegistration))
+	goji.Post("/login", baseHandler.Route(userHandler.DoLogin))
 	goji.NotFound(baseHandler.NotFound)
 
 	goji.Serve()
